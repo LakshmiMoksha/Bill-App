@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Bills</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light p-5">
+<div class="container">
+    <h2 class="mb-4 text-center">📋 All Bills</h2>
+
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-success text-center" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <table class="table table-bordered table-hover bg-white shadow rounded">
+        <thead class="table-primary text-center">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            {% for bill in bills %}
+            <tr>
+                <td>{{ bill[0] }}</td>
+                <td>{{ bill[1] }}</td>
+                <td style="white-space: pre-wrap;">{{ bill[2] }}</td>
+                <td>₹{{ bill[3] }}</td>
+                <td>{{ bill[4] }}</td>
+                <td>
+                    <form action="{{ url_for('delete_bill', bill_id=bill[0]) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this bill?');">
+                        <button type="submit" class="btn btn-sm btn-danger">🗑 Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-outline-primary">⬅ Back to Create Bill</a>
+    </div>
+</div>
+
+</body>
+</html>
