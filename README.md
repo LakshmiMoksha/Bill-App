@@ -10,6 +10,7 @@ The system provides a clean workflow for creating bills, calculating totals, and
 *Database*: SQLite
 
 *Frontend*:HTML5,CSS3,Bootstrap
+
 ---
 
 # Overview
